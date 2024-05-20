@@ -1,40 +1,39 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <style>
-    body {
+    body{
         font-family: "Roboto", sans-serif;
-        font-size: 18px;
+        font-size: 18;
         background-color: #fdfdfd;
+        padding: 0;
+        margin: 0;
     }
-
-    .head_text {
+    .head_text{
         color: white;
     }
-
-    .card {
+    .card{
         box-shadow: 0 16px 48px #E3E7EB;
+    }
+    .masthead{
+        background-color: #3698e1;
+        padding: 0;
+        margin: 0;
+    }
+    #container{
+        display: flex;
+        flex-direction: row;
+    }
+    .card-main{
+        max-width: max-content;
     }
 </style>
 
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class="site-heading my-4 mt-3 text-white">Welcome to Palmer's awesome Blog</h3>
-                    <p class="text-light">We Love Palmer's Blog As much as you do..! &nbsp;</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
-<div class="container">
-    <div class="row">
+<div class="container" id="container">
+    <div >
         <!-- Blog Entries Column -->
-        <div class="col-md-8 mt-3 left">
+        <div class="col-md-8 mt-3 card-main" >
             {% for post in post_list %}
             <div class="card mb-4">
                 <div class="card-body">
@@ -50,5 +49,15 @@
         {% include 'sidebar.html' %}
         {% endblock sidebar %}
     </div>
+    <div class="col-md-4">
+        <div class="card my-4">
+            <h5 class="card-header">About Us</h5>
+            <div class="card-body">
+                <p class="card-text"> This awesome blog is made on the top of all favorite full stack Framework 'Django', follow up the tutorial to learn how we made it...!</p>
+                <a href="https://djangoblog.com/building-a-blog-application-with-django" class="btn btn-danger">Know more!</a>
+            </div>
+        </div>
+    </div>
+    
 </div>
 {% endblock %}

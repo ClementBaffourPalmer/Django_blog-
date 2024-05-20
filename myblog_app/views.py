@@ -12,7 +12,7 @@ class PostDetail(generic.DetailView):
     model = Post 
     template_name = 'post_detail.html'
 
-def Post(request):
+def post(request):
     posts = Post.objects.all() 
     return render(request, 'post_detail.html', {'posts': posts})
 
