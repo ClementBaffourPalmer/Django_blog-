@@ -2,62 +2,67 @@
 
 {% block content %}
 <style>
-    body{
+    body {
         font-family: "Roboto", sans-serif;
-        font-size: 18;
+        font-size: 18px; /* Added 'px' to font-size */
         background-color: #fdfdfd;
         padding: 0;
         margin: 0;
     }
-    .head_text{
+    .head_text {
         color: white;
     }
-    .card{
+    .card {
         box-shadow: 0 16px 48px #E3E7EB;
     }
-    .masthead{
+    .masthead {
         background-color: #3698e1;
         padding: 0;
         margin: 0;
     }
-    #container{
+    #container {
         display: flex;
         flex-direction: row;
     }
-    .card-main{
+    .card-main {
         max-width: max-content;
     }
 </style>
 
-
 <div class="container" id="container">
-    <div >
+    <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-8 mt-3 card-main" >
-            {% for post in post_list %}
-            <div class="card mb-4">
+        <div class="col-md-8 mt-3 card-main">
+            {% if post_list %}
+                {% for post in post_list %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}</p>
+                            <p class="card-text">{{ post.content|safe }}</p>
+                            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>There is no content to view</p>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <div class="card my-4">
+                <h5 class="card-header">About Us</h5>
                 <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}</p>
-                    <p class="card-text">{{ post.content|safe }}</p>
-                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                    <p class="card-text">This awesome blog is made on the top of all favorite full stack Framework 'Django'. Follow up the tutorial to learn how we made it...!</p>
+                    <a href="https://djangoblog.com/building-a-blog-application-with-django" class="btn btn-danger">Know more!</a>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        {% block sidebar %}
-        {% include 'sidebar.html' %}
-        {% endblock sidebar %}
-    </div>
-    <div class="col-md-4">
-        <div class="card my-4">
-            <h5 class="card-header">About Us</h5>
-            <div class="card-body">
-                <p class="card-text"> This awesome blog is made on the top of all favorite full stack Framework 'Django', follow up the tutorial to learn how we made it...!</p>
-                <a href="https://djangoblog.com/building-a-blog-application-with-django" class="btn btn-danger">Know more!</a>
-            </div>
+
+            {% block sidebar %}
+                {% include 'sidebar.html' %}
+            {% endblock %}
         </div>
     </div>
-    
 </div>
 {% endblock %}
